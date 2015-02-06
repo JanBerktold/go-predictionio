@@ -18,14 +18,6 @@ func NewEngineClient(path, appkey string) *EngineClient {
 	}
 }
 
-func (cl *EngineClient) GetStatus() {
-
-}
-
-func (cl *EngineClient) GetStatusString() {
-
-}
-
 func (cl *EngineClient) SendQuery() {
 
 }

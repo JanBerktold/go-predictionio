@@ -13,3 +13,7 @@ type client struct {
 func (c *client) execute() {
 
 }
+
+func (c *client) GetStatus() {
+
+}
