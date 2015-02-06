@@ -5,6 +5,10 @@ import (
 )
 
 type client struct {
-	http.Client
+	cl   http.Client
 	path string
+}
+
+func (c *client) execute() {
+
 }
