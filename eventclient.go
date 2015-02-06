@@ -1,7 +1,9 @@
 package predict
 
 import (
+	"fmt"
 	"net/http"
+	"time"
 )
 
 type EventClient struct {
@@ -18,34 +20,67 @@ func NewEventClient(path, appkey string) *EventClient {
 	}
 }
 
-func (cl *EventClient) CreateEvent() {
-
+func (cl *EventClient) createEvent(eventType, entityType, entityId string, optional OptionalMap) {
+	event := Event{
+		eventType,
+		entityType,
+		entityId,
+		optional,
+		time.Now(),
+	}
+	fmt.Println(event)
 }
 
-func (cl *EventClient) DeleteItem() {
-
+func (cl *EventClient) DeleteItem(iid string) {
+	cl.createEvent("$delete", "item", iid, nil)
 }
 
 func (cl *EventClient) DeleteUser(uid string) {
-
+	cl.createEvent("$delete", "user", uid, nil)
 }
 
-func (cl *EventClient) RecordUserActionOnItem() {
+func (cl *EventClient) RecordUserActionOnItem(action, uid, iid string, optional ...OptionalMap) {
+	var param OptionalMap
+	if len(optional) > 0 {
+		param = optional[0]
+	} else {
+		param = make(OptionalMap)
+	}
 
+	param["targetEntityType"] = "item"
+	param["targetEntityType"] = iid
+
+	cl.createEvent(action, "item", iid, param)
 }
 
-func (cl *EventClient) SetItem() {
-
+func (cl *EventClient) SetItem(iid string, optional ...OptionalMap) {
+	var param OptionalMap
+	if len(optional) > 0 {
+		param = optional[0]
+	}
+	cl.createEvent("$set", "item", iid, param)
 }
 
-func (cl *EventClient) SetUser(uid string) {
-
+func (cl *EventClient) UnsetItem(iid string, optional OptionalMap) error {
+	if len(optional) == 0 {
+		return ErrEmptyParam
+	}
+	cl.createEvent("$unset", "item", iid, optional)
+	return nil
 }
 
-func (cl *EventClient) UnsetItem() {
-
+func (cl *EventClient) SetUser(uid string, optional ...OptionalMap) {
+	var param OptionalMap
+	if len(optional) > 0 {
+		param = optional[0]
+	}
+	cl.createEvent("$set", "user", uid, param)
 }
 
-func (cl *EventClient) UnsetUser() {
-
+func (cl *EventClient) UnsetUser(uid string, optional OptionalMap) error {
+	if len(optional) == 0 {
+		return ErrEmptyParam
+	}
+	cl.createEvent("$unset", "user", uid, optional)
+	return nil
 }
