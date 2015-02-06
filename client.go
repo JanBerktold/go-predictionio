@@ -23,6 +23,7 @@ func (c *client) execute(method, url string, obj interface{}) (string, error) {
 
 	fmt.Println(string(by))
 	req, _ := http.NewRequest(method, url, bytes.NewReader(by))
+	req.Header.Add("Content-Type", AppJsonContentType)
 	resp, hErr := c.cl.Do(req)
 
 	if hErr != nil {

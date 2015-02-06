@@ -8,6 +8,7 @@ import (
 
 type EventClient struct {
 	client
+	eventPath string
 }
 
 func NewEventClient(path, appkey string) *EventClient {
@@ -17,18 +18,19 @@ func NewEventClient(path, appkey string) *EventClient {
 			path,
 			appkey,
 		},
+		fmt.Sprintf("%s/events.json?accessKey=%s", path, appkey),
 	}
 }
 
 func (cl *EventClient) createEvent(eventType, entityType, entityId string, optional OptionalMap) {
-	event := Event{
+	body, err := cl.execute("POST", cl.eventPath, Event{
 		eventType,
 		entityType,
 		entityId,
 		optional,
 		time.Now(),
-	}
-	fmt.Println(event)
+	})
+	fmt.Println(body, err)
 }
 
 func (cl *EventClient) DeleteItem(iid string) {

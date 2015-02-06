@@ -10,6 +10,13 @@ var (
 	ErrEmptyParam = errors.New("Optionals must not be empty")
 )
 
+const (
+	RootRessource      = "/"
+	EventsRessource    = "/events.json"
+	EngineRessource    = "/queries.json"
+	AppJsonContentType = "application/json"
+)
+
 type OptionalMap map[string]interface{}
 
 type Event struct {
@@ -25,10 +32,7 @@ type ResponseMessage struct {
 }
 
 // Extracted from github.com/bububa/predictionio-go
-/*type ResponseMessage struct {
-	Message string `json:"message"`
-}
-
+/*
 type AddUserRequest struct {
 	AppKey   string `json:"pio_appkey"`
 	Uid      string `json:"pio_uid"`
