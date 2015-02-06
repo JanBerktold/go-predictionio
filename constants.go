@@ -20,6 +20,10 @@ type Event struct {
 	eventTime  time.Time   `json:"eventTime"`
 }
 
+type ResponseMessage struct {
+	Message string `json:"message"`
+}
+
 // Extracted from github.com/bububa/predictionio-go
 /*type ResponseMessage struct {
 	Message string `json:"message"`
