@@ -8,11 +8,12 @@ type EngineClient struct {
 	client
 }
 
-func NewEngineClient(path string) *EngineClient {
+func NewEngineClient(path, appkey string) *EngineClient {
 	return &EngineClient{
 		client{
 			http.Client{},
 			path,
+			appkey,
 		},
 	}
 }
