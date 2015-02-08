@@ -76,6 +76,7 @@ func (cl *EventClient) SetUser(uid string, optional ...OptionalMap) {
 	if len(optional) > 0 {
 		param = optional[0]
 	}
+	fmt.Println(uid, param)
 	cl.createEvent("$set", "user", uid, param)
 }
 
