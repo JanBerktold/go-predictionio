@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	test_url = "http://localhost"
+	test_url = "http://localhost:7070"
 	test_key = "testkey"
 )
 
